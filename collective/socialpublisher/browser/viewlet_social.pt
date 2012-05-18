@@ -1,0 +1,22 @@
+<div id="socialpublisher-viewlet">
+	<form tal:attributes="action view/action_url" tal:condition="view/has_accounts">
+		<input checked="checked" type="checkbox" name="where:list" value="twitter" /> twitter
+		<input disabled="disabled" type="checkbox" name="where:list" value="facebook" /> facebook
+		<input disabled="disabled" type="checkbox" name="where:list" value="linkedin" /> linkedin
+		<input type="checkbox" 
+			   name="make_autopublishable:int"
+			   value="1"
+			   tal:attributes="checked python:view.auto_publish_enabled() and 'checked' or None"
+			    /> autopublish
+		<select name="twitter_account" tal:define="accounts view/twitter_accounts">
+			<option
+				tal:repeat="account accounts"
+				tal:attributes="value account/id;
+				                selected python:account['selected'] and 'selected' or None"
+				tal:content="account/id"
+				/>
+		</select>
+
+		<input type="submit" class="standalone" value="publish" />
+	</form>
+</div>

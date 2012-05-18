@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.socialpublisher">
+
+    <browser:page
+        for="*"
+        name="social-publish"
+        class=".views.Publish"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="*"
+        name="social-auto-publish"
+        class=".views.AutoPublish"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:viewlet
+        name="collective.socialpublisher"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+        class=".viewlets.Social"
+        permission="cmf.ModifyPortalContent"
+        />
+
+</configure>
