@@ -1,7 +1,11 @@
 import tweepy
 
+from zope import component
+
 from zope.interface import implements
 from zope.interface import classProvides
+
+from plone.registry.interfaces import IRegistry
 
 from collective.socialpublisher.interfaces import ISocialPublisherUtility
 from collective.socialpublisher.interfaces import ISocialPublisher
@@ -11,22 +15,33 @@ class BasePublisherUtility(object):
 	classProvides(ISocialPublisherUtility)
 	implements(ISocialPublisher)
 
+	id = ""
+	title = ""
 
-	def __init__(self, **kw):
-		self.consumer_key = kw.get('consumer_key')
-		self.consumer_secret = kw.get('consumer_secret')
-		self.oauth_token = kw.get('oauth_token')
-		self.oauth_token_secret = kw.get('oauth_token_secret')
+	def __init__(self, account_id=None, account=None):
+		assert account or account_id
+		if account is None and account_id:
+			account = self.get_account(account_id)
+		self.consumer_key = account.get('consumer_key')
+		self.consumer_secret = account.get('consumer_secret')
+		self.oauth_token = account.get('oauth_token')
+		self.oauth_token_secret = account.get('oauth_token_secret')
 		self.api = self._get_api()
 
 	def _get_api(self):
 		raise NotImplemented()
 
-	def publish(self, text):
+	def publish(self, account_id, text):
 		raise NotImplemented()
+
+	def get_accounts(self):
+		return NotImplemented()
 
 
 class TwitterPublisher(BasePublisherUtility):
+
+	id="twitter"
+	title="Twitter"
 
 	def _get_api(self):
 		auth = tweepy.OAuthHandler(self.consumer_key,self.consumer_secret)
@@ -36,3 +51,12 @@ class TwitterPublisher(BasePublisherUtility):
 
 	def publish(self, text):
  		self.api.update_status(text)
+
+ 	def get_account(self, account_id):
+ 		return self.get_accounts()[account_id]
+
+ 	@classmethod
+ 	def get_accounts(cls):
+		registry = component.getUtility(IRegistry)
+		accounts = registry.get('collective.twitter.accounts', [])
+		return accounts

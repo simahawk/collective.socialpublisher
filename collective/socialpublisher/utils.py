@@ -4,9 +4,8 @@ from urllib2 import urlopen, HTTPError, URLError
 
 from zope import component
 
-from plone.registry.interfaces import IRegistry
-
 from collective.socialpublisher.interfaces import IPublishStorageManager
+from collective.socialpublisher.interfaces import ISocialPublisherUtility
 
 
 def getTinyURL(url):
@@ -20,12 +19,13 @@ def getTinyURL(url):
         link = None
     return link
 
-def get_twitter_accounts():
-	registry = component.getUtility(IRegistry)
-	accounts = registry.get('collective.twitter.accounts', [])
-	return accounts
+def get_publishers():
+    gsm = component.getGlobalSiteManager()
+    publishers = gsm.getAllUtilitiesRegisteredFor(ISocialPublisherUtility)
+    return publishers
 
 def get_text(obj):
+    # XXX: make this smarter (using per-type adapters?)
     LIMIT = 140
     manager = IPublishStorageManager(obj)
     if manager.get_text():

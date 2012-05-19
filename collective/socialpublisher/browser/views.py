@@ -21,27 +21,54 @@ from collective.socialpublisher import utils
 class Publish(BrowserView):
 
     def __call__(self):
-        return self.publish()
+        form = self.request.form
+        if form.get('autopublish'):
+            self.handle_autopublish()
+        else:
+            self.publish()
 
     def action_url(self):
         return "%s/%s" % (self.context.absolute_url(),
                           self.__name__)
 
-    def _publish(self, content, where='twitter', account_id=""):
-        accounts = utils.get_twitter_accounts()
-        account = accounts.get(account_id, {})
-        results = []
+    def _publish(self, content, publisher, account_id):
+        import ipdb;ipdb.set_trace()
+        Publisher = getUtility(ISocialPublisherUtility, name=publisher)
+        publisher = Publisher(account_id)
+        publisher.publish(content)
 
-        if account:
-            Publisher = getUtility(ISocialPublisherUtility, name=where)
-            publisher = Publisher(**account)
-            publisher.publish(content)
-        else:
-            print "can't find account %s" % account_id
+    def update_message(self, msg, type="info"):
+        IStatusMessage(self.request).addStatusMessage(msg,type=type)
+        url = self.context.absolute_url()
+        self.request.response.redirect(url)
 
     def publish(self):
         obj = self.context
-        if self.request.get('make_autopublishable',0)==1:
+        selected_publishers = self.request.get('publishers',[])
+        if not selected_publishers:
+            msg = "select at list one publisher!"
+            self.update_message(msg, type="error")
+            return
+        content = self.get_content()
+        manager = IPublishStorageManager(obj)
+        selected_accounts = self.request.get('accounts')
+        for pub_id in selected_publishers:
+            account_id = selected_accounts.get(pub_id)
+            manager.set_account(account_id,publisher_id=pub_id)
+            self._publish(content, pub_id, account_id)
+        msg = 'content published on %s' % ', '.join(selected_publishers)
+        self.update_message(msg)
+
+    def get_content(self):
+        return utils.get_text(self.context)
+
+    def prepare_content(self):
+        pass
+
+    def handle_autopublish(self):
+        form = self.request.form
+        obj = self.context
+        if form.get('enable'):
             if not IAutoPublishable.providedBy(obj):
                 alsoProvides(obj,IAutoPublishable)
                 obj.reindexObject(idxs=['object_provides'])
@@ -49,25 +76,8 @@ class Publish(BrowserView):
             if IAutoPublishable.providedBy(obj):
                 obj.reindexObject(idxs=['object_provides'])
                 noLongerProvides(obj,IAutoPublishable)
-        where = self.request.get('where')
-        if where is not None:
-            username = self.request.get('twitter_account')
-            manager = IPublishStorageManager(obj)
-            manager.set_account(username,account_type='twitter')
-            content = self.get_content()
-            self._publish(content, account_id=username)
-            msg = 'content published'
-        else:
-            msg = 'done'
-        IStatusMessage(self.request).addStatusMessage(msg)
-        url = self.context.absolute_url()
-        self.request.response.redirect(url)
-
-    def get_content(self):
-        return utils.get_text(self.context)
-
-    def prepare_content(self):
-        pass
+        msg = 'Auto-publish updated'
+        self.update_message(msg)
 
 
 class AutoPublish(Publish):
@@ -78,6 +88,7 @@ class AutoPublish(Publish):
 
     def publish(self):
         end = datetime.datetime.now() - datetime.timedelta(1)
+        # TODO: make query dinamyc per-type
         query = dict(
             portal_type="Event",
             end = dict(query=end,range='min')

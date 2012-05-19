@@ -7,6 +7,10 @@ class IAutoPublishable(IAttributeAnnotatable):
 	""" marker interface
 	"""
 
+class IPublishable(IAttributeAnnotatable):
+	""" marker interface
+	"""
+
 class IPublishStorageManager(interface.Interface):
 	""" adapter for storing social publish info
 	"""
@@ -16,5 +20,5 @@ class ISocialPublisherUtility(interface.Interface):
 	"""
 
 class ISocialPublisher(interface.Interface):
-	"""
+	""" a social publisher
 	"""

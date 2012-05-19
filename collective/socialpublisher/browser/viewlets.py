@@ -2,7 +2,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
-from plone.memoize.instance import memoize
+from plone.memoize.view import memoize
 
 from collective.socialpublisher.interfaces import IAutoPublishable
 from collective.socialpublisher.interfaces import IPublishStorageManager
@@ -15,33 +15,40 @@ class Social(ViewletBase):
     render = ViewPageTemplateFile('viewlet_social.pt')
     
     def update(self):
-        portal_state = getMultiAdapter((self.context, self.request),
-                                            name=u'plone_portal_state')
-        self.navigation_root_url = portal_state.navigation_root_url()
-        portal = portal_state.portal()
-        self.portal_title = portal_state.portal_title()
+        pass
         
     def action_url(self):
-    	return self.context.absolute_url() +'/@@social-publish'
-
-    def auto_publish_allowed(self):
-    	return self.context.meta_type in AUTOPUBLISHABLE_CONTENTTYPES
+        return self.context.absolute_url() +'/@@social-publish'
 
     def auto_publish_enabled(self):
     	return IAutoPublishable.providedBy(self.context)
 
     def has_accounts(self):
-        return bool(utils.get_twitter_accounts().keys())
+        has = False
+        for pub in self.publishers:
+            if pub.get_accounts():
+                has = True
+                break
+        return has
 
     @property
-    def twitter_accounts(self):
+    def publishers(self):
+        return utils.get_publishers()
+
+    @property
+    def accounts(self):
+        res = {}
         manager = IPublishStorageManager(self.context, None)
-        selected = ''
-        if manager:
-            selected = manager.get_twitter_account()
-        accounts = utils.get_twitter_accounts().keys()
-        return [
-            dict(id = x,
-                selected = x == selected)
-            for x in accounts
-        ]
+        selected = ""
+        for pub in self.publishers:
+            if manager is None:
+                res[pub.id] = []
+            else:
+                selected = manager.get_account(pub.id)
+                accounts = pub.get_accounts()
+                res[pub.id] = [
+                                dict(id = x,
+                                     selected = x == selected)
+                                for x in accounts.keys()
+                            ]
+        return res

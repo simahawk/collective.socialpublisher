@@ -5,7 +5,7 @@ from zope import interface
 
 from zope.annotation.interfaces import IAnnotations
 
-from collective.socialpublisher.interfaces import IAutoPublishable
+from collective.socialpublisher.interfaces import IPublishable
 from collective.socialpublisher.interfaces import IPublishStorageManager
 
 KEY = 'collective.socialpublisher:publish-settings'
@@ -13,7 +13,7 @@ KEY = 'collective.socialpublisher:publish-settings'
 
 class Manager(object):
 	interface.implements(IPublishStorageManager)
-	component.adapts(IAutoPublishable)
+	component.adapts(IPublishable)
 
 	def __init__(self, context):
 		self.context = context
@@ -21,18 +21,20 @@ class Manager(object):
 		annotations.setdefault(KEY,PersistentDict())
 		self.storage = annotations[KEY]
 
-	def _set_account(self, account_type, account_id):
-		self.storage[account_type] = account_id
+	def _set_account(self, publisher_id, account_id):
+		self.storage[publisher_id] = account_id
 
-	def set_account(self, account_id, account_type='twitter'):
-		self._set_account(account_type, account_id)
+	def set_account(self, account_id, publisher_id):
+		# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXs
+		# remove twitter, this stuff should be indipendent
+		# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		self._set_account(publisher_id, account_id)
 
-	def _get_account(self, account_type):
-		return self.storage.get(account_type)
+	def _get_account(self, publisher_id):
+		return self.storage.get(publisher_id)
 
-	def get_twitter_account(self):
-		acc_type = 'twitter'
-		return self._get_account(acc_type)
+	def get_account(self, publisher_id):
+		return self._get_account(publisher_id)
 
 	def set_text(self, txt):
 		self.storage['text'] = txt

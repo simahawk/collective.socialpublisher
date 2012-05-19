@@ -25,5 +25,9 @@
         provides=".interfaces.ISocialPublisherUtility"
         name="twitter"
         />
+
+    <class class="Products.ATContentTypes.content.event.ATEvent">
+      <implements interface=".interfaces.IPublishable" />
+    </class>
   
 </configure>

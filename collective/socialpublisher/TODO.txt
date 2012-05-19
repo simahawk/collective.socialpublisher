@@ -1,0 +1,5 @@
+TODO
+====
+
+- add global publish configuration
+- add support for linkedin and facebook

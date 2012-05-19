@@ -18,6 +18,7 @@
         />
 
     <browser:viewlet
+        for="collective.socialpublisher.interfaces.IPublishable"
         name="collective.socialpublisher"
         manager="plone.app.layout.viewlets.interfaces.IAboveContent"
         class=".viewlets.Social"
