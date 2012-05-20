@@ -41,14 +41,13 @@ class Social(ViewletBase):
         manager = IPublishStorageManager(self.context, None)
         selected = ""
         for pub in self.publishers:
-            if manager is None:
-                res[pub.id] = []
-            else:
+            selected = None
+            if manager:
                 selected = manager.get_account(pub.id)
-                accounts = pub.get_accounts()
-                res[pub.id] = [
-                                dict(id = x,
-                                     selected = x == selected)
-                                for x in accounts.keys()
-                            ]
+            accounts = pub.get_accounts()
+            res[pub.id] = [
+                            dict(id = x,
+                                 selected = x == selected)
+                            for x in accounts.keys()
+                        ]
         return res
