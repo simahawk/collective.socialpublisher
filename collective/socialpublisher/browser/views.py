@@ -32,7 +32,6 @@ class Publish(BrowserView):
                           self.__name__)
 
     def _publish(self, content, publisher, account_id):
-        import ipdb;ipdb.set_trace()
         Publisher = getUtility(ISocialPublisherUtility, name=publisher)
         publisher = Publisher(account_id)
         publisher.publish(content)
