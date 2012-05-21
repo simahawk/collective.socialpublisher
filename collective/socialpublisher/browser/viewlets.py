@@ -51,3 +51,9 @@ class Social(ViewletBase):
                             for x in accounts.keys()
                         ]
         return res
+
+    def get_text(self):
+        manager = IPublishStorageManager(self.context, None)
+        saved = manager.get_text()
+        default = utils.get_text(self.context)
+        return saved or default

@@ -3,6 +3,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.socialpublisher">
 
+    <browser:resourceDirectory
+        name="socialpublisher"
+        directory="resources"
+        />
+
     <browser:page
         for="*"
         name="social-publish"

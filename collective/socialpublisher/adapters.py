@@ -40,5 +40,5 @@ class Manager(object):
 		self.storage['text'] = txt
 
 	def get_text(self):
-		return self.storage.get('text')
+		return self.storage.get('text','')
 

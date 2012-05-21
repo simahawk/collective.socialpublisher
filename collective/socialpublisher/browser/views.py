@@ -49,7 +49,9 @@ class Publish(BrowserView):
             self.update_message(msg, type="error")
             return
         content = self.get_content()
+        text = self.get_content()
         manager = IPublishStorageManager(obj)
+        manager.set_text(text)
         selected_accounts = self.request.get('accounts')
         for pub_id in selected_publishers:
             account_id = selected_accounts.get(pub_id)
@@ -59,7 +61,9 @@ class Publish(BrowserView):
         self.update_message(msg)
 
     def get_content(self):
-        return utils.get_text(self.context)
+        default = utils.get_text(self.context)
+        custom = self.request.get('text','').strip()
+        return custom or default
 
     def prepare_content(self):
         pass

@@ -1,0 +1,22 @@
+#socialpublisher-viewlet{
+	padding:8px;
+	border-radius:10px;
+	background:#ccc;
+	border:2px solid #888;
+}
+#socialpublisher-viewlet .toggle{
+	float:right;
+	padding: 10px;
+	margin-top:-32px;
+	cursor: pointer;
+	font-weight:bold;
+}
+#socialpublisher-viewlet .show{display: none}
+#socialpublisher-viewlet input[type=checkbox] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+#socialpublisher-viewlet textarea{ width: 99% }
+#socialpublisher-viewlet .actions{ text-align:right }
+#socialpublisher-viewlet .enabled .actions{ color:green }
+#socialpublisher-viewlet .disabled .actions{ color:red }

@@ -35,5 +35,5 @@ def get_text(obj):
         url = obj.absolute_url()
         short_link = getTinyURL(url)
         available_chars = LIMIT - (len(short_link)+1)
-        txt = "%s %s norepeat" % (txt[:available_chars],short_link)
+        txt = "%s %s" % (txt[:available_chars],short_link)
     return txt

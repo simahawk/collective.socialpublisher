@@ -1,53 +1,71 @@
-<div id="socialpublisher-viewlet">
-    <tal:if-accounts  condition="view/has_accounts">
-        <form name="publisher"
-              tal:attributes="action view/action_url"
-              tal:define="publishers view/publishers;
-                          accounts view/accounts;">
-            <tal:publisher repeat="pub publishers">
-                <input type="checkbox"
-                       name="publishers:list"
-                       tal:attributes="value pub/id" />
-                <span class="label" tal:content="pub/title" />
-                <select tal:attributes="name string:accounts.${pub/id}:record">
-                    <tal:accounts repeat="account python:accounts.get(pub.id, [])">
-                        <option 
-                            tal:attributes="value account/id;
-                                            selected python:account['selected'] and 'selected' or None"
-                            tal:content="account/id"
-                            />
-                    </tal:accounts>
-                </select>
-            </tal:publisher>
-            <input type="submit"
-                   class="standalone"
-                   name="publish"
-                   value="Publish" />
-        </form>
-        <form name="make_autopublishable"
-              tal:attributes="action view/action_url">
-            <input type="hidden" name="autopublish" value="1" />
-            <tal:enabled condition="view/auto_publish_enabled">
-                <span class="label">Auto-publish enabled</span>
-                <input type="submit"
-                       class="standalone"
-                       name="disable"
-                       value="Disable auto-publish"
-                       />
-            </tal:enabled>
-            <tal:disabled condition="not: view/auto_publish_enabled">
-                <span class="label">Auto-publish disabled</span>
-                <input type="submit"
-                       class="standalone"
-                       name="enable"
-                       value="Enable auto-publish"
-                       />
-            </tal:disabled>
-        </form>
-    </tal:if-accounts>
-    <tal:if-not-accounts condition="not: view/has_accounts">
-        <p class="no-accounts" i18n:translate="">
-            There's no account to be used. Check your publishing settings.
-        </p>
-    </tal:if-not-accounts>
+<div id="socialpublisher-viewlet" class="wrapper">
+    <div class="header">
+      <h4 i18n:translate="">Social publisher</h4>
+      <a class="toggle hide">hide</a>
+      <a class="toggle show">show</a>
+    </div>
+    <div class="content">
+      <tal:if-accounts  condition="view/has_accounts">
+          <form name="publisher"
+                tal:attributes="action view/action_url"
+                tal:define="publishers view/publishers;
+                            accounts view/accounts;">
+
+            <div class="publishers">
+              <tal:publisher repeat="pub publishers">
+                  <input type="checkbox"
+                         name="publishers:list"
+                         tal:attributes="value pub/id" />
+                  <span class="label" tal:content="pub/title" />
+                  <select tal:attributes="name string:accounts.${pub/id}:record">
+                      <tal:accounts repeat="account python:accounts.get(pub.id, [])">
+                          <option 
+                              tal:attributes="value account/id;
+                                              selected python:account['selected'] and 'selected' or None"
+                              tal:content="account/id"
+                              />
+                      </tal:accounts>
+                  </select>
+              </tal:publisher>
+            </div>
+            <div class="custom-text">
+              <textarea name="text" tal:content="view/get_text" />
+            </div>
+            <div class="actions">
+              <input type="submit"
+                     class="standalone"
+                     name="publish"
+                     value="Publish" />
+            </div>
+          </form>
+          <form name="make_autopublishable"
+                tal:attributes="action view/action_url;
+                                class python:view.auto_publish_enabled() and 'enabled' or 'disabled';">
+              <input type="hidden" name="autopublish" value="1" />
+              <div class="actions">
+                <tal:enabled condition="view/auto_publish_enabled">
+                    <span class="label">Auto-publish enabled</span>
+                    <input type="submit"
+                           class="standalone"
+                           name="disable"
+                           value="Disable auto-publish"
+                           />
+                </tal:enabled>
+                <tal:disabled condition="not: view/auto_publish_enabled">
+                    <span class="label">Auto-publish disabled</span>
+                    <input type="submit"
+                           class="standalone"
+                           name="enable"
+                           value="Enable auto-publish"
+                           />
+                </tal:disabled>
+              </div>
+          </form>
+      </tal:if-accounts>
+      <tal:if-not-accounts condition="not: view/has_accounts">
+          <p class="no-accounts" i18n:translate="">
+              There's no account to be used. Check your publishing settings.
+          </p>
+      </tal:if-not-accounts>
+    </div>
 </div>
