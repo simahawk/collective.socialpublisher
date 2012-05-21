@@ -6,7 +6,7 @@ version = '1.0a1'
 setup(name='collective.socialpublisher',
       version=version,
       description="Manage and automate social publishing on Plone sites",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
