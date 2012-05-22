@@ -44,5 +44,3 @@ This product was developed by Domsense.
 .. image:: http://domsense.com/logo-txt.png
    :alt: Domsense Website
    :target: http://www.domsense.com/
-
-    

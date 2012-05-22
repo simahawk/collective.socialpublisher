@@ -13,7 +13,7 @@ setup(name='collective.socialpublisher',
       classifiers=[
         "Development Status :: 3 - Alpha",
         "Framework :: Plone",
-        "Framework :: Plone :: 4.2"
+        "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         ],
       keywords='',
