@@ -73,6 +73,15 @@
                 If enabled and cron has been set up this object will be auto-published, using 
                 the given text and the account you already used.
               </p>
+              <div class="cron-info" tal:condition="view/show_cron_info">
+                <p class="cron-found help" tal:condition="view/cron" i18n:translate="">
+                  A cron was found with the following schedule
+                  <span class="schedule" i18n:name="schedule" tal:content="view/cron" />.
+                </p> 
+                <p class="cron-notfound help" tal:condition="not: view/cron" i18n:translate="">
+                  No cron was found.
+                </p>
+              </div>
           </form>
       </tal:if-accounts>
       <tal:if-not-accounts condition="not: view/has_accounts">
@@ -81,5 +90,5 @@
           </p>
       </tal:if-not-accounts>
     </div>
-    
+
 </div>

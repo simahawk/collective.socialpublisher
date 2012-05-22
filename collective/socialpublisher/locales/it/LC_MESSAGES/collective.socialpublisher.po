@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-22 13:03+0000\n"
+"POT-Creation-Date: 2012-05-22 15:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,13 +14,17 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+#: ./../browser/viewlet_social.pt:79
+msgid "A cron was found with the following schedule ${schedule}."
+msgstr "Un cron con le seguenti impostazioni é stato trovato: ${schedule}."
+
 #: ./../browser/viewlet_social.pt:63
 #: ./../browser/views.py:86
 msgid "Auto-publish disabled"
 msgstr "Auto-pubblicazione disabilitata"
 
 #: ./../browser/viewlet_social.pt:54
-#: ./../browser/views.py:82
+#: ./../browser/views.py:81
 msgid "Auto-publish enabled"
 msgstr "Auto-pubblicazione abilitata"
 
@@ -36,11 +40,15 @@ msgstr "Abilita auto-pubblicazione"
 msgid "If enabled and cron has been set up this object will be auto-published, using the given text and the account you already used."
 msgstr "Se abilitata e un cron é stato configurato, questo oggetto verrá pubblicato automaticamente usando il testo e l'account utilizzato precedentemente."
 
+#: ./../browser/viewlet_social.pt:81
+msgid "No cron was found."
+msgstr "Nessun cron é stato trovato"
+
 #: ./../browser/viewlet_social.pt:40
 msgid "Publish"
 msgstr "Pubblica"
 
-#: ./../browser/views.py:49
+#: ./../browser/views.py:48
 msgid "Select at list one publisher!"
 msgstr "Seleziona almeno un publisher!"
 
@@ -48,12 +56,12 @@ msgstr "Seleziona almeno un publisher!"
 msgid "Social publisher"
 msgstr ""
 
-#: ./../browser/viewlet_social.pt:79
+#: ./../browser/viewlet_social.pt:88
 msgid "There's no account to be used. Check your publishing settings."
 msgstr "Non é stato configurato alcun account. Controllare le impostazioni."
 
 #. Default: "Content published on ${published_on}"
-#: ./../browser/views.py:61
+#: ./../browser/views.py:60
 msgid "content_published"
 msgstr "Contenuto pubblicato su ${published_on}"
 
