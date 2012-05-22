@@ -11,7 +11,8 @@
 	cursor: pointer;
 	font-weight:bold;
 }
-#socialpublisher-viewlet .show{display: none}
+#socialpublisher-viewlet .content{ display: none; }
+#socialpublisher-viewlet .hide{ display: none }
 #socialpublisher-viewlet input[type=checkbox] {
     margin-right: 5px;
     vertical-align: middle;
