@@ -77,8 +77,8 @@ class Publish(BrowserView):
                 obj.reindexObject(idxs=['object_provides'])
         else:
             if IAutoPublishable.providedBy(obj):
-                obj.reindexObject(idxs=['object_provides'])
                 noLongerProvides(obj,IAutoPublishable)
+                obj.reindexObject(idxs=['object_provides'])
         msg = 'Auto-publish updated'
         self.update_message(msg)
 

@@ -32,8 +32,12 @@ def get_text(obj):
         txt = manager.get_text()[:LIMIT]
     else:
         txt = obj.Title()
-        url = obj.absolute_url()
-        short_link = getTinyURL(url)
-        available_chars = LIMIT - (len(short_link)+1)
+        link = obj.absolute_url()
+        # XXX: handle this is an smart way
+        # short_link = getTinyURL(link)
+        short_link = None 
+        if short_link:
+            link = short_link
+        available_chars = LIMIT - (len(link)+1)
         txt = "%s %s" % (txt[:available_chars],short_link)
     return txt
