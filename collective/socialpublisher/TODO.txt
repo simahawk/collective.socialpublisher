@@ -2,8 +2,8 @@ TODO
 ====
 
 - tests + docs
-- localization
 - modify and store the content of the publication
 - add global publish configuration
 - add support for linkedin and facebook
 - make query for auto-publish content dynamic/configurable
+- ...
