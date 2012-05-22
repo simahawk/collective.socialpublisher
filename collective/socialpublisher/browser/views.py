@@ -16,6 +16,7 @@ from collective.socialpublisher.interfaces import IAutoPublishable
 from collective.socialpublisher.interfaces import IPublishStorageManager
 from collective.socialpublisher.interfaces import ISocialPublisherUtility
 from collective.socialpublisher import utils
+from collective.socialpublisher import _
 
 
 class Publish(BrowserView):
@@ -45,7 +46,7 @@ class Publish(BrowserView):
         obj = self.context
         selected_publishers = self.request.get('publishers',[])
         if not selected_publishers:
-            msg = "select at list one publisher!"
+            msg = _(u"Select at list one publisher!")
             self.update_message(msg, type="error")
             return
         content = self.get_content()
@@ -57,8 +58,11 @@ class Publish(BrowserView):
             account_id = selected_accounts.get(pub_id)
             manager.set_account(account_id,publisher_id=pub_id)
             self._publish(content, pub_id, account_id)
-        msg = 'content published on %s' % ', '.join(selected_publishers)
-        self.update_message(msg)
+        msg = _(u'content_published',
+                default=u"Content published on ${published_on}",
+                mapping={'published_on': ', '.join(selected_publishers) })
+        translated = self.context.translate(msg)
+        self.update_message(translated)
 
     def get_content(self):
         default = utils.get_text(self.context)
@@ -71,16 +75,20 @@ class Publish(BrowserView):
     def handle_autopublish(self):
         form = self.request.form
         obj = self.context
+        changed = False
         if form.get('enable'):
             if not IAutoPublishable.providedBy(obj):
                 alsoProvides(obj,IAutoPublishable)
-                obj.reindexObject(idxs=['object_provides'])
+                msg = _('Auto-publish enabled')
+                changed = True
         else:
             if IAutoPublishable.providedBy(obj):
                 noLongerProvides(obj,IAutoPublishable)
-                obj.reindexObject(idxs=['object_provides'])
-        msg = 'Auto-publish updated'
-        self.update_message(msg)
+                msg = _('Auto-publish disabled')
+                changed = True
+        if changed:
+            obj.reindexObject(idxs=['object_provides'])
+            self.update_message(msg)
 
 
 class AutoPublish(Publish):

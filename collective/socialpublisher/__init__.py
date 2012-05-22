@@ -1,4 +1,7 @@
-# -*- extra stuff goes here -*-
+from zope.i18nmessageid import MessageFactory
+
+socialPublisherMF = MessageFactory('collective.socialpublisher')
+_ = socialPublisherMF
 
 
 def initialize(context):

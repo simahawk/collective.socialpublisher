@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-05-22 13:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./../browser/viewlet_social.pt:63
+#: ./../browser/views.py:86
+msgid "Auto-publish disabled"
+msgstr "Auto-pubblicazione disabilitata"
+
+#: ./../browser/viewlet_social.pt:54
+#: ./../browser/views.py:82
+msgid "Auto-publish enabled"
+msgstr "Auto-pubblicazione abilitata"
+
+#: ./../browser/viewlet_social.pt:55
+msgid "Disable auto-publish"
+msgstr "Disabilita auto-pubblicazione"
+
+#: ./../browser/viewlet_social.pt:64
+msgid "Enable auto-publish"
+msgstr "Abilita auto-pubblicazione"
+
+#: ./../browser/viewlet_social.pt:72
+msgid "If enabled and cron has been set up this object will be auto-published, using the given text and the account you already used."
+msgstr "Se abilitata e un cron é stato configurato, questo oggetto verrá pubblicato automaticamente usando il testo e l'account utilizzato precedentemente."
+
+#: ./../browser/viewlet_social.pt:40
+msgid "Publish"
+msgstr "Pubblica"
+
+#: ./../browser/views.py:49
+msgid "Select at list one publisher!"
+msgstr "Seleziona almeno un publisher!"
+
+#: ./../browser/viewlet_social.pt:8
+msgid "Social publisher"
+msgstr ""
+
+#: ./../browser/viewlet_social.pt:79
+msgid "There's no account to be used. Check your publishing settings."
+msgstr "Non é stato configurato alcun account. Controllare le impostazioni."
+
+#. Default: "Content published on ${published_on}"
+#: ./../browser/views.py:61
+msgid "content_published"
+msgstr "Contenuto pubblicato su ${published_on}"
+
+#: ./../browser/viewlet_social.pt:9
+msgid "hide"
+msgstr "nascondi"
+
+#: ./../browser/viewlet_social.pt:10
+msgid "show"
+msgstr "mostra"
+

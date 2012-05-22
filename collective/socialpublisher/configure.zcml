@@ -6,6 +6,8 @@
     i18n_domain="collective.socialpublisher">
 
     <five:registerPackage package="." initialize=".initialize" />
+    <i18n:registerTranslations directory="locales" />
+    <includeDependencies package="." />
 
     <genericsetup:registerProfile
       name="default"

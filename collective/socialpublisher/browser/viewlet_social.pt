@@ -1,11 +1,15 @@
-<div id="socialpublisher-viewlet" class="wrapper"
+<div id="socialpublisher-viewlet"
+     class="wrapper"
      tal:condition="view/available"
-     tal:attributes="class python: 'wrapper' + (request.get('submitted') and ' submitted' or '')">
+     tal:attributes="class python: 'wrapper' + (request.get('submitted') and ' submitted' or '')"
+     i18n:domain="collective.socialpublisher">
+
     <div class="header">
       <h4 i18n:translate="">Social publisher</h4>
-      <a class="toggle hide">hide</a>
-      <a class="toggle show">show</a>
+      <a class="toggle hide" i18n:translate="">hide</a>
+      <a class="toggle show" i18n:translate="">show</a>
     </div>
+
     <div class="content">
       <tal:if-accounts  condition="view/has_accounts">
           <form name="publisher"
@@ -36,6 +40,7 @@
               <input type="submit"
                      class="standalone"
                      name="publish"
+                     i18n:attributes="value"
                      value="Publish" />
             </div>
           </form>
@@ -46,18 +51,20 @@
               <input type="hidden" name="autopublish" value="1" />
               <div class="actions">
                 <tal:enabled condition="view/auto_publish_enabled">
-                    <span class="label">Auto-publish enabled</span>
+                    <span class="label" i18n:translate="">Auto-publish enabled</span>
                     <input type="submit"
                            class="standalone"
                            name="disable"
+                           i18n:attributes="value"
                            value="Disable auto-publish"
                            />
                 </tal:enabled>
                 <tal:disabled condition="not: view/auto_publish_enabled">
-                    <span class="label">Auto-publish disabled</span>
+                    <span class="label" i18n:translate="">Auto-publish disabled</span>
                     <input type="submit"
                            class="standalone"
                            name="enable"
+                           i18n:attributes="value"
                            value="Enable auto-publish"
                            />
                 </tal:disabled>
@@ -74,4 +81,5 @@
           </p>
       </tal:if-not-accounts>
     </div>
+    
 </div>
