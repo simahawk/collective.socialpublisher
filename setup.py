@@ -11,13 +11,15 @@ setup(name='collective.socialpublisher',
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
+        "Development Status :: 3 - Alpha",
         "Framework :: Plone",
+        "Framework :: Plone :: 4.2"
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Simone Orsi [simahawk]',
+      author_email='simahawk@gmail.com',
+      url='https://github.com/simahawk/collective.socialpublisher',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
@@ -27,7 +29,6 @@ setup(name='collective.socialpublisher',
           'setuptools',
           # -*- Extra requirements: -*-
           'collective.twitter.accounts',
-          'twitter',
           'tweepy',
       ],
       entry_points="""
@@ -36,6 +37,4 @@ setup(name='collective.socialpublisher',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins=["ZopeSkel"],
       )

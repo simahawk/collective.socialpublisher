@@ -29,4 +29,20 @@ To enable auto-publishing you have to enable it per-content (waiting for global 
 
 See also http://collective-docs.readthedocs.org/en/latest/misc/asyncronoustasks.html.
 
+
+Tested on
+=========
+
+Plone 4.2rc1
+
+
+Credits
+=======
+
+This product was developed by Domsense.
+
+.. image:: http://domsense.com/logo-txt.png
+   :alt: Domsense Website
+   :target: http://www.domsense.com/
+
     
