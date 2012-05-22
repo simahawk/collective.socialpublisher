@@ -38,7 +38,7 @@ class Publish(BrowserView):
 
     def update_message(self, msg, type="info"):
         IStatusMessage(self.request).addStatusMessage(msg,type=type)
-        url = self.context.absolute_url()
+        url = self.context.absolute_url() +'?submitted=1'
         self.request.response.redirect(url)
 
     def publish(self):

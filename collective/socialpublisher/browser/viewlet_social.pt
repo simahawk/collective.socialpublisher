@@ -1,5 +1,6 @@
 <div id="socialpublisher-viewlet" class="wrapper"
-     tal:condition="view/available">
+     tal:condition="view/available"
+     tal:attributes="class python: 'wrapper' + (request.get('submitted') and ' submitted' or '')">
     <div class="header">
       <h4 i18n:translate="">Social publisher</h4>
       <a class="toggle hide">hide</a>
@@ -11,7 +12,6 @@
                 tal:attributes="action view/action_url"
                 tal:define="publishers view/publishers;
                             accounts view/accounts;">
-
             <div class="publishers">
               <tal:publisher repeat="pub publishers">
                   <input type="checkbox"
@@ -39,7 +39,8 @@
                      value="Publish" />
             </div>
           </form>
-          <form name="make_autopublishable"
+          <form id="autopublish"
+                name="make_autopublishable"
                 tal:attributes="action view/action_url;
                                 class python:view.auto_publish_enabled() and 'enabled' or 'disabled';">
               <input type="hidden" name="autopublish" value="1" />
@@ -61,6 +62,10 @@
                            />
                 </tal:disabled>
               </div>
+              <p class="discreet help" i18n:translate="">
+                If enabled and cron has been set up this object will be auto-published, using 
+                the given text and the account you already used.
+              </p>
           </form>
       </tal:if-accounts>
       <tal:if-not-accounts condition="not: view/has_accounts">

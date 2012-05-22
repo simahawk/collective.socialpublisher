@@ -1,5 +1,7 @@
 #socialpublisher-viewlet{
 	padding:8px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 	border-radius:10px;
 	background:#ccc;
 	border:2px solid #888;
@@ -13,11 +15,24 @@
 }
 #socialpublisher-viewlet .content{ display: none; }
 #socialpublisher-viewlet .hide{ display: none }
+#socialpublisher-viewlet.submitted .content{ display: block; }
+#socialpublisher-viewlet.submitted .hide{ display: block; }
+#socialpublisher-viewlet.submitted .show{ display: none }
 #socialpublisher-viewlet input[type=checkbox] {
     margin-right: 5px;
     vertical-align: middle;
 }
 #socialpublisher-viewlet textarea{ width: 99% }
-#socialpublisher-viewlet .actions{ text-align:right }
+#socialpublisher-viewlet #publisher .actions{ text-align:right }
 #socialpublisher-viewlet .enabled .actions{ color:green }
 #socialpublisher-viewlet .disabled .actions{ color:red }
+
+#socialpublisher-viewlet #autopublish{
+	text-align:center ;
+	padding:5px;
+	margin-top:10px;
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+	border-radius:10px;
+	background-color: #DDD;
+}
