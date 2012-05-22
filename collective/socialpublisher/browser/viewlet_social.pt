@@ -37,6 +37,19 @@
               <textarea name="text" tal:content="view/get_text" />
             </div>
             <div class="actions">
+              <input type="checkbox"
+                     name="one_shot_text" />
+              <span class="label"
+                    title="Use the text only for this publication"
+                    i18n:attributes="title"
+                    i18n:translate="">
+                    one shot text?
+              </span>
+              <input type="submit"
+                     class="standalone"
+                     name="update"
+                     i18n:attributes="value"
+                     value="Update" />
               <input type="submit"
                      class="standalone"
                      name="publish"

@@ -24,6 +24,8 @@ class Publish(BrowserView):
         form = self.request.form
         if form.get('autopublish'):
             self.handle_autopublish()
+        elif form.get('update'):
+            self.update_settings()
         else:
             self.publish()
 
@@ -41,6 +43,23 @@ class Publish(BrowserView):
         url = self.context.absolute_url() +'?submitted=1'
         self.request.response.redirect(url)
 
+    def _update_settings(self):
+        obj = self.context
+        selected_publishers = self.request.get('publishers',[])
+        manager = IPublishStorageManager(obj)
+        custom_text = self.request.get('text','').strip()
+        if not self.request.get('one_shot_text'):
+            manager.set_text(custom_text)
+        selected_accounts = self.request.get('accounts')
+        for pub_id in selected_publishers:
+            account_id = selected_accounts.get(pub_id)
+            manager.set_account(account_id,publisher_id=pub_id)
+
+    def update_settings(self):
+        self._update_settings()
+        msg = _(u"Settings updated")
+        self.update_message(msg)
+
     def publish(self):
         obj = self.context
         selected_publishers = self.request.get('publishers',[])
@@ -48,14 +67,14 @@ class Publish(BrowserView):
             msg = _(u"Select at list one publisher!")
             self.update_message(msg, type="error")
             return
+        self._update_settings()
         content = self.get_content()
-        text = self.get_content()
         manager = IPublishStorageManager(obj)
-        manager.set_text(text)
+        if manager.get_text() and not self.request.get('one_shot_text'):
+            content = manager.get_text()
         selected_accounts = self.request.get('accounts')
         for pub_id in selected_publishers:
             account_id = selected_accounts.get(pub_id)
-            manager.set_account(account_id,publisher_id=pub_id)
             self._publish(content, pub_id, account_id)
         msg = _(u'content_published',
                 default=u"Content published on ${published_on}",
