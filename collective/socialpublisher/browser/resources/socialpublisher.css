@@ -1,5 +1,6 @@
 #socialpublisher-viewlet{
 	padding:8px;
+	margin-bottom:5px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 	border-radius:10px;
@@ -23,7 +24,7 @@
     vertical-align: middle;
 }
 #socialpublisher-viewlet textarea{ width: 99% }
-#socialpublisher-viewlet #publisher .actions{ text-align:right }
+#socialpublisher-viewlet form[name=publisher] .actions{ text-align: right }
 #socialpublisher-viewlet .enabled .actions{ color:green }
 #socialpublisher-viewlet .disabled .actions{ color:red }
 
@@ -36,4 +37,11 @@
 	border-radius:10px;
 	background-color: #DDD;
 }
-#socialpublisher-viewlet .cron-info{ font-weight:bold }
+#socialpublisher-viewlet .cron-info{
+	margin-top:10px;
+	font-weight:bold;
+}
+#socialpublisher-viewlet .cron-info,
+#socialpublisher-viewlet .discreet{
+	font-size:85%;
+}

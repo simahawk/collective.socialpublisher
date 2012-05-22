@@ -89,7 +89,7 @@
               <div class="cron-info" tal:condition="view/show_cron_info">
                 <p class="cron-found help" tal:condition="view/cron" i18n:translate="">
                   A cron was found with the following schedule
-                  <span class="schedule" i18n:name="schedule" tal:content="view/cron" />.
+                  <br /><span class="schedule" i18n:name="schedule" tal:content="view/cron" />.
                 </p> 
                 <p class="cron-notfound help" tal:condition="not: view/cron" i18n:translate="">
                   No cron was found.

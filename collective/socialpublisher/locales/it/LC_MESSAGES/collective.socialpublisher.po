@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-22 15:31+0000\n"
+"POT-Creation-Date: 2012-05-22 18:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,60 +14,76 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./../browser/viewlet_social.pt:79
-msgid "A cron was found with the following schedule ${schedule}."
-msgstr "Un cron con le seguenti impostazioni é stato trovato: ${schedule}."
+#: ./../browser/viewlet_social.pt:92
+msgid "A cron was found with the following schedule <br />${schedule}."
+msgstr "É stato trovato un cron con le seguenti impostazioni <br />${schedule}."
 
-#: ./../browser/viewlet_social.pt:63
-#: ./../browser/views.py:86
+#: ./../browser/viewlet_social.pt:76
+#: ./../browser/views.py:105
 msgid "Auto-publish disabled"
 msgstr "Auto-pubblicazione disabilitata"
 
-#: ./../browser/viewlet_social.pt:54
-#: ./../browser/views.py:81
+#: ./../browser/viewlet_social.pt:67
+#: ./../browser/views.py:100
 msgid "Auto-publish enabled"
 msgstr "Auto-pubblicazione abilitata"
 
-#: ./../browser/viewlet_social.pt:55
+#: ./../browser/viewlet_social.pt:68
 msgid "Disable auto-publish"
 msgstr "Disabilita auto-pubblicazione"
 
-#: ./../browser/viewlet_social.pt:64
+#: ./../browser/viewlet_social.pt:77
 msgid "Enable auto-publish"
 msgstr "Abilita auto-pubblicazione"
 
-#: ./../browser/viewlet_social.pt:72
+#: ./../browser/viewlet_social.pt:85
 msgid "If enabled and cron has been set up this object will be auto-published, using the given text and the account you already used."
 msgstr "Se abilitata e un cron é stato configurato, questo oggetto verrá pubblicato automaticamente usando il testo e l'account utilizzato precedentemente."
 
-#: ./../browser/viewlet_social.pt:81
+#: ./../browser/viewlet_social.pt:94
 msgid "No cron was found."
 msgstr "Nessun cron é stato trovato"
 
-#: ./../browser/viewlet_social.pt:40
+#: ./../browser/viewlet_social.pt:53
 msgid "Publish"
 msgstr "Pubblica"
 
-#: ./../browser/views.py:48
+#: ./../browser/views.py:67
 msgid "Select at list one publisher!"
 msgstr "Seleziona almeno un publisher!"
+
+#: ./../browser/views.py:60
+msgid "Settings updated"
+msgstr "Impostazioni aggiornate"
 
 #: ./../browser/viewlet_social.pt:8
 msgid "Social publisher"
 msgstr ""
 
-#: ./../browser/viewlet_social.pt:88
+#: ./../browser/viewlet_social.pt:101
 msgid "There's no account to be used. Check your publishing settings."
 msgstr "Non é stato configurato alcun account. Controllare le impostazioni."
 
+#: ./../browser/viewlet_social.pt:48
+msgid "Update"
+msgstr "Aggiorna"
+
+#: ./../browser/viewlet_social.pt:42
+msgid "Use the text only for this publication"
+msgstr "Usa il testo solo per questa pubblicazione"
+
 #. Default: "Content published on ${published_on}"
-#: ./../browser/views.py:60
+#: ./../browser/views.py:79
 msgid "content_published"
 msgstr "Contenuto pubblicato su ${published_on}"
 
 #: ./../browser/viewlet_social.pt:9
 msgid "hide"
 msgstr "nascondi"
+
+#: ./../browser/viewlet_social.pt:42
+msgid "one shot text?"
+msgstr ""
 
 #: ./../browser/viewlet_social.pt:10
 msgid "show"
