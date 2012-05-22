@@ -16,6 +16,9 @@ class Social(ViewletBase):
     
     def update(self):
         pass
+
+    def available(self):
+        return not self.context._at_creation_flag
         
     def action_url(self):
         return self.context.absolute_url() +'/@@social-publish'

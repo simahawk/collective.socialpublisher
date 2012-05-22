@@ -1,4 +1,5 @@
-<div id="socialpublisher-viewlet" class="wrapper">
+<div id="socialpublisher-viewlet" class="wrapper"
+     tal:condition="view/available">
     <div class="header">
       <h4 i18n:translate="">Social publisher</h4>
       <a class="toggle hide">hide</a>
