@@ -1,5 +1,4 @@
 import datetime
-from twitter import Twitter
 
 from zope.component import getUtility
 
