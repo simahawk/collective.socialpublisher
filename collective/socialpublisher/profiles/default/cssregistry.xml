@@ -3,7 +3,7 @@
 
 <stylesheet title="" cacheable="True"
     compression="safe" conditionalcomment="" cookable="True" enabled="on"
-    expression="request/HTTP_X_THEME_ENABLED | nothing"
+    expression=""
     id="++resource++socialpublisher/socialpublisher.css" media="" rel="stylesheet"
     rendering="link"
     />
