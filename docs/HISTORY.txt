@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.0a2
+---------------------
+- [fix] old twitter import
+- [imp] 'update' button for saving settings without publishing
+- [imp] if cron4plone is present display any available cron schedule
+- [imp] improved styles a bit 
+
 1.0a1
 ---------------------
 
