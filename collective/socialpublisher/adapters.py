@@ -12,33 +12,46 @@ KEY = 'collective.socialpublisher:publish-settings'
 
 
 class Manager(object):
-	interface.implements(IPublishStorageManager)
-	component.adapts(IPublishable)
+    interface.implements(IPublishStorageManager)
+    component.adapts(IPublishable)
 
-	def __init__(self, context):
-		self.context = context
-		annotations = IAnnotations(self.context)
-		annotations.setdefault(KEY,PersistentDict())
-		self.storage = annotations[KEY]
+    def __init__(self, context):
+        self.context = context
 
-	def _set_account(self, publisher_id, account_id):
-		self.storage[publisher_id] = account_id
+    @property
+    def _annotations(self):
+        return IAnnotations(self.context)
+    
+    @property
+    def storage(self):
+        if KEY not in self._annotations:
+            self._reset_storage()
+        return self._annotations[KEY]
 
-	def set_account(self, account_id, publisher_id):
-		# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXs
-		# remove twitter, this stuff should be indipendent
-		# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		self._set_account(publisher_id, account_id)
+    def _reset_storage(self):
+        self._annotations[KEY] = PersistentDict()
+        # set up sub keys
+        self._annotations[KEY]['accounts'] = {}
+        self._annotations[KEY]['text'] = ""
 
-	def _get_account(self, publisher_id):
-		return self.storage.get(publisher_id)
+    def get_accounts(self):
+        return self.storage['accounts']
 
-	def get_account(self, publisher_id):
-		return self._get_account(publisher_id)
+    def _set_account(self, publisher_id, account_id):
+        self.storage['accounts'][publisher_id] = account_id
 
-	def set_text(self, txt):
-		self.storage['text'] = txt
+    def set_account(self, publisher_id, account_id):
+        self._set_account(publisher_id, account_id)
 
-	def get_text(self):
-		return self.storage.get('text','')
+    def _get_account(self, publisher_id):
+        return self.storage['accounts'].get(publisher_id)
+
+    def get_account(self, publisher_id):
+        return self._get_account(publisher_id)
+
+    def set_text(self, txt):
+        self.storage['text'] = txt
+
+    def get_text(self):
+        return self.storage.get('text','')
 

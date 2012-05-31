@@ -31,6 +31,7 @@ setup(name='collective.socialpublisher',
           'collective.twitter.accounts',
           'tweepy',
       ],
+      extras_require={'test': ['plone.app.testing']},
       entry_points="""
       # -*- Entry points: -*-
 

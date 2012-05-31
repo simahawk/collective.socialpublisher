@@ -1,0 +1,63 @@
+Publish manager
+===============
+
+Let's create an Event
+
+>>> from plone.app.testing import setRoles
+>>> from plone.app.testing import TEST_USER_ID
+>>> portal = layer['portal']
+>>> setRoles(portal, TEST_USER_ID, ['Manager'])
+>>> evid = portal.invokeFactory('Event', 'event')
+>>> event = portal[evid]
+
+Enabled for publishing (XXX: this should be already done by configure.zcml :S)
+
+>>> from collective.socialpublisher.interfaces import IPublishable
+>>> IPublishable.providedBy(event)
+True
+
+get the manager
+
+>>> from collective.socialpublisher.interfaces import IPublishStorageManager
+>>> manager = IPublishStorageManager(event, None)
+>>> manager is None
+False
+
+storage must be a PersistentDict
+
+>>> from persistent.dict import PersistentDict
+>>> isinstance(manager.storage,PersistentDict)
+True
+
+accounts must be an empty dict and text an empty string
+
+>>> manager.get_accounts()
+{}
+>>> manager.get_text()
+''
+
+we can save an account for a give publisher
+
+>>> publisher = 'twitter'
+>>> account_id = 'simahawk'
+>>> manager.set_account(publisher,account_id)
+>>> manager.get_account(publisher)
+'simahawk'
+>>> manager.get_accounts()
+{'twitter': 'simahawk'}
+
+let's try with more accounts
+
+>>> publisher = 'facebook'
+>>> account_id = 'simahawkfb'
+>>> manager.set_account(publisher,account_id)
+>>> manager.get_account(publisher)
+'simahawkfb'
+>>> manager.get_accounts()
+{'twitter': 'simahawk', 'facebook': 'simahawkfb'}
+
+we can save some text
+
+>>> manager.set_text('foo bar')
+>>> manager.get_text()
+'foo bar'
