@@ -1,5 +1,5 @@
 import datetime
-import logger
+import logging
 
 from zope.component import getUtility
 
