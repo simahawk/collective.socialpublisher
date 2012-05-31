@@ -18,18 +18,10 @@ class BasePublisherUtility(object):
 	id = ""
 	title = ""
 
-	def __init__(self, account_id=None, account=None):
-		assert account or account_id
-		if account is None and account_id:
-			account = self.get_account(account_id)
-		self.consumer_key = account.get('consumer_key')
-		self.consumer_secret = account.get('consumer_secret')
-		self.oauth_token = account.get('oauth_token')
-		self.oauth_token_secret = account.get('oauth_token_secret')
-		self.api = self._get_api()
-
-	def _get_api(self):
-		raise NotImplemented()
+	def __init__(self, account_id):
+		""" initialize your stuff here
+		"""
+		self.account_id = account_id
 
 	def publish(self, account_id, text):
 		raise NotImplemented()
@@ -42,6 +34,16 @@ class TwitterPublisher(BasePublisherUtility):
 
 	id="twitter"
 	title="Twitter"
+
+	def __init__(self, account_id):
+		assert account_id
+		self.account_id = account_id
+		account = self.get_account(account_id)
+		self.consumer_key = account.get('consumer_key')
+		self.consumer_secret = account.get('consumer_secret')
+		self.oauth_token = account.get('oauth_token')
+		self.oauth_token_secret = account.get('oauth_token_secret')
+		self.api = self._get_api()
 
 	def _get_api(self):
 		auth = tweepy.OAuthHandler(self.consumer_key,self.consumer_secret)

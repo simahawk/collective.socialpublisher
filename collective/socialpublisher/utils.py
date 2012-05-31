@@ -3,9 +3,12 @@ from urllib import urlencode
 from urllib2 import urlopen, HTTPError, URLError
 
 from zope import component
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 
 from collective.socialpublisher.interfaces import IPublishStorageManager
 from collective.socialpublisher.interfaces import ISocialPublisherUtility
+from collective.socialpublisher.interfaces import IGlobalSettings
 
 
 def getTinyURL(url):
@@ -38,6 +41,13 @@ def get_text(obj):
         short_link = None 
         if short_link:
             link = short_link
-        available_chars = LIMIT - (len(link)+1)
+        else:
+            short_link = link
+        available_chars = LIMIT - (len(short_link)+1)
         txt = "%s %s" % (txt[:available_chars],short_link)
     return txt
+
+
+def get_global_settings():
+    registry = component.getUtility(IRegistry)
+    return registry.forInterface(IGlobalSettings)
