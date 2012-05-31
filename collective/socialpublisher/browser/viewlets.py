@@ -80,6 +80,7 @@ class Social(ViewletBase):
             if tool is not None:
                 schedule = None
                 crondata = tool._getCronData()
+                # example of data
                 # [{'expression': u'portal/@@social-auto-publish', 
                 # 'id': 0, 'schedule': [u'*', u'*', u'*', u'*']}]
                 for item in crondata:

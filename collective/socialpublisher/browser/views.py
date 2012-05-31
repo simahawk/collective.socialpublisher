@@ -1,4 +1,5 @@
 import datetime
+import logger
 
 from zope.component import getUtility
 
@@ -11,6 +12,9 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.statusmessages.interfaces import IStatusMessage
 
+from plone.registry.interfaces import IRegistry
+
+from collective.socialpublisher.interfaces import IGlobalSettings
 from collective.socialpublisher.interfaces import IAutoPublishable
 from collective.socialpublisher.interfaces import IPublishStorageManager
 from collective.socialpublisher.interfaces import ISocialPublisherUtility
@@ -51,9 +55,9 @@ class Publish(BrowserView):
         if not self.request.get('one_shot_text'):
             manager.set_text(custom_text)
         selected_accounts = self.request.get('accounts')
-        for pub_id in selected_publishers:
-            account_id = selected_accounts.get(pub_id)
-            manager.set_account(account_id,publisher_id=pub_id)
+        for pub in selected_publishers:
+            account_id = selected_accounts.get(pub)
+            manager.set_account(pub,account_id)
 
     def update_settings(self):
         self._update_settings()
@@ -73,9 +77,9 @@ class Publish(BrowserView):
         if manager.get_text() and not self.request.get('one_shot_text'):
             content = manager.get_text()
         selected_accounts = self.request.get('accounts')
-        for pub_id in selected_publishers:
-            account_id = selected_accounts.get(pub_id)
-            self._publish(content, pub_id, account_id)
+        for pub in selected_publishers:
+            account_id = selected_accounts.get(pub)
+            self._publish(content, pub, account_id)
         msg = _(u'content_published',
                 default=u"Content published on ${published_on}",
                 mapping={'published_on': ', '.join(selected_publishers) })
@@ -109,6 +113,8 @@ class Publish(BrowserView):
             self.update_message(msg)
 
 
+autopublish_log = logging.getLogger('[AutoPublisher]')
+
 class AutoPublish(Publish):
 
     @property
@@ -116,16 +122,25 @@ class AutoPublish(Publish):
         return getToolByName(self.context,'portal_catalog')
 
     def publish(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IGlobalSettings)
+        if not settings.autopublish_enabled:
+            autopublish_log.info('Auto-publishing disabled globally')
+            return
         end = datetime.datetime.now() - datetime.timedelta(1)
         # TODO: make query dinamyc per-type
+        # but then: how to get all enabled types in a smart way?
+        # see also ..interfaces.IGlobalSettings
         query = dict(
             portal_type="Event",
-            end = dict(query=end,range='min')
+            end = dict(query=end,range='min'),
+            object_provides=IAutoPublishable.__identifier__,
         )
         brains = self.catalog(query)
         for brain in brains:
             obj = brain.getObject()
-            content = utils.get_text(obj)
             manager = IPublishStorageManager(obj)
-            account_id = manager.get_twitter_account()
-            self._publish(content,account_id=account_id)
+            # XXX: we should delegate default text get to manager (?)
+            content = manager.get_text() or utils.get_text(obj)
+            for publisher,account_id in manager.get_accounts().items():
+                self._publish(content, publisher, account_id=account_id)
