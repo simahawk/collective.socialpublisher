@@ -30,6 +30,7 @@ setup(name='collective.socialpublisher',
           # -*- Extra requirements: -*-
           'collective.twitter.accounts',
           'tweepy',
+          'plone.app.registry',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""

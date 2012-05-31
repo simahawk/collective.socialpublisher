@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<registry>
+    <records interface="collective.socialpublisher.interfaces.IGlobalSettings">
+<!--       <value key="enabled_content_types" purge="false">
+        <element>Event</element>
+      </value> -->
+      <value key="autopublish_enabled" purge="false">False</value>
+    </records>
+</registry>

@@ -30,4 +30,12 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        name="socialpublisher-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        permission="cmf.ManagePortal"
+        class=".controlpanel.ControlPanelForm"
+        />
+
+
 </configure>
