@@ -29,14 +29,14 @@ storage must be a PersistentDict
 >>> isinstance(manager.storage,PersistentDict)
 True
 
-accounts must be an empty dict and text an empty string
+and accounts must be an empty dict and text an empty string.
 
 >>> manager.get_accounts()
 {}
 >>> manager.get_text()
 ''
 
-we can save an account for a give publisher
+We can save an account for a given publisher
 
 >>> publisher = 'twitter'
 >>> account_id = 'simahawk'
@@ -46,7 +46,7 @@ we can save an account for a give publisher
 >>> manager.get_accounts()
 {'twitter': 'simahawk'}
 
-let's try with more accounts
+let's add another publisher/account.
 
 >>> publisher = 'facebook'
 >>> account_id = 'simahawkfb'
@@ -56,8 +56,16 @@ let's try with more accounts
 >>> manager.get_accounts()
 {'twitter': 'simahawk', 'facebook': 'simahawkfb'}
 
-we can save some text
+We can also save the text to be published
 
 >>> manager.set_text('foo bar')
 >>> manager.get_text()
 'foo bar'
+
+Then we can hard reset the settings like this:
+
+>>> manager._reset_storage()
+>>> manager.get_accounts()
+{}
+>>> manager.get_text()
+''
