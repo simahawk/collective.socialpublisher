@@ -33,4 +33,4 @@ See also http://collective-docs.readthedocs.org/en/latest/misc/asyncronoustasks.
 Tested on
 =========
 
-Plone 4.2rc1
+Plone 4.1 + 4.2rc1
