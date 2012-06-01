@@ -10,7 +10,7 @@ Let's create an Event
 >>> evid = portal.invokeFactory('Event', 'event')
 >>> event = portal[evid]
 
-Enabled for publishing (XXX: this should be already done by configure.zcml :S)
+and check that is enabled for publishing
 
 >>> from collective.socialpublisher.interfaces import IPublishable
 >>> IPublishable.providedBy(event)

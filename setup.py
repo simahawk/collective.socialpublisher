@@ -1,13 +1,28 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a2'
+version = '1.0a3' 
+
+def read(*pargs):
+    path = os.path.join(*pargs)
+    return open(path,'r').read()
+
+def long_desc():
+    base_path = "collective/socialpublisher/"
+    contents = [
+        read("README.rst"),
+        read(base_path,'tests',"MANAGER.txt"),
+        read(base_path, "TODO.txt"),
+        read("docs", "HISTORY.txt"),
+        read("docs", "CREDITS.txt"),
+    ]
+    return '\n'.join(contents)
+
 
 setup(name='collective.socialpublisher',
       version=version,
       description="Manage and automate social publishing on Plone sites",
-      long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=long_desc(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[

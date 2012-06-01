@@ -1,13 +1,25 @@
 Changelog
 =========
 
+1.0a3
+---------------------
+
+- [add] test buildout.cfg
+- [imp] improved tests
+- [imp] improved docs
+- [add] global config using p.a.registry + controlpanel
+- [imp] you can now turn off auto-publish globally
+
+
 1.0a2
 ---------------------
+
 - [fix] old twitter import
 - [imp] 'update' button for saving settings without publishing
 - [imp] 'one-shot-text' a flag for changing the text only for the current publishing without overwriting the stored one
 - [imp] if cron4plone is present display any available cron schedule
-- [imp] improved styles a bit 
+- [imp] improved styles a bit
+
 
 1.0a1
 ---------------------
