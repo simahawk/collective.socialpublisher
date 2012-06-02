@@ -1,33 +1,34 @@
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
-from zope.component import getMultiAdapter
-from Products.CMFCore.utils import getToolByName
 from plone.memoize.view import memoize
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 
 try:
     import Products.cron4plone
+    # flake8
+    Products.cron4plone
     HAS_CRON4PLONE = True
 except ImportError:
     HAS_CRON4PLONE = False
 
 from collective.socialpublisher.interfaces import IAutoPublishable
 from collective.socialpublisher.interfaces import IPublishStorageManager
-from collective.socialpublisher.config import AUTOPUBLISHABLE_CONTENTTYPES
 from collective.socialpublisher import utils
 
 
 class Social(ViewletBase):
-    
+
     render = ViewPageTemplateFile('viewlet_social.pt')
-    
+
     def available(self):
         return not self.context._at_creation_flag
-        
+
     def action_url(self):
-        return self.context.absolute_url() +'/@@social-publish'
+        return self.context.absolute_url() + '/@@social-publish'
 
     def auto_publish_enabled(self):
-    	return IAutoPublishable.providedBy(self.context)
+        return IAutoPublishable.providedBy(self.context)
 
     def has_accounts(self):
         has = False
@@ -76,18 +77,20 @@ class Social(ViewletBase):
     def _get_cron(self):
         cron = None
         if HAS_CRON4PLONE:
-            tool = getToolByName(self.context,'CronTool',None)
+            tool = getToolByName(self.context, 'CronTool', None)
             if tool is not None:
                 schedule = None
                 crondata = tool._getCronData()
                 # example of data
-                # [{'expression': u'portal/@@social-auto-publish', 
+                # [{'expression': u'portal/@@social-auto-publish',
                 # 'id': 0, 'schedule': [u'*', u'*', u'*', u'*']}]
                 for item in crondata:
-                    if '@@social-auto-publish' in item.get('expression',''):
+                    if '@@social-auto-publish' in item.get('expression', ''):
                         schedule = item.get('schedule')
                         break
                 if schedule is not None:
-                    legend = ('min','hour', 'day of month', 'month')
-                    cron = ', '.join([': '.join((k,v)) for k,v in  zip(legend,schedule)])
+                    legend = ('min', 'hour', 'day of month', 'month')
+                    cron = ', '.join([': '.join((k, v))
+                                      for k, v in  zip(legend, schedule)
+                                      ])
         return cron
