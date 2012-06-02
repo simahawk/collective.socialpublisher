@@ -7,24 +7,67 @@ from collective.socialpublisher import _
 
 
 class IAutoPublishable(IAttributeAnnotatable):
-    """ marker interface
+    """ marker interface for objects that are allowed
+    to be auto-published
     """
+
 
 class IPublishable(IAttributeAnnotatable):
-    """ marker interface
+    """ marker interface for objects that are allowed
+    to be published
     """
 
+
 class IPublishStorageManager(interface.Interface):
-    """ adapter for storing social publish info
+    """ adapter for managing settings storage on IPublishable objects
     """
+
+    def get_accounts():
+        """ returns adict of publisher/account mapping
+        """
+
+    def set_account(publisher_id, account_id):
+        """ store publisher/account mapping
+
+        publisher_id -- id of a registered publisher
+        account_id -- id of an account to be used with the publisher
+        """
+
+    def get_account(publisher_id):
+        """ returns account id for the given publisher
+
+        publisher_id -- id of a registered publisher
+        """
+
+    def set_text(txt):
+        """ store the text to be published
+
+        txt -- multiline text
+        """
+
+    def get_text():
+        """ returns the text to be published
+        """
+
 
 class ISocialPublisherUtility(interface.Interface):
     """ utility for publishing
     """
 
+
 class ISocialPublisher(interface.Interface):
     """ a social publisher
     """
+
+    def publish(text):
+        """ publish given text
+        """
+
+    def get_accounts():
+        """ returns adict containing the accounts registered
+        for this publisher
+        """
+
 
 class IGlobalSettings(interface.Interface):
     """ global settings

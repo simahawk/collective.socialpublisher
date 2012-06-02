@@ -12,6 +12,9 @@ KEY = 'collective.socialpublisher:publish-settings'
 
 
 class Manager(object):
+    """ adapter for managing per-object publishing settings
+    """
+
     interface.implements(IPublishStorageManager)
     component.adapts(IPublishable)
 

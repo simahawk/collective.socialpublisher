@@ -23,7 +23,7 @@ class BasePublisherUtility(object):
 		"""
 		self.account_id = account_id
 
-	def publish(self, account_id, text):
+	def publish(self, text):
 		raise NotImplemented()
 
 	def get_accounts(self):

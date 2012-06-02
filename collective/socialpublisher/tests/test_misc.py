@@ -75,20 +75,31 @@ class TestExample(unittest.TestCase):
                                          name=test_utils.FakePublisher.id)
         # let's create an event
         event = self.create_event()
-
+        # and get its manager
         manager = IPublishStorageManager(event)
+        # we must have empty values here
         self.assertEqual(manager.get_accounts(),{})
         self.assertEqual(manager.get_text(),'')
 
+        # we can now publish it using `social-publish` view
         view = event.restrictedTraverse('@@social-publish')
         publishers = [test_utils.FakePublisher.id]
         accounts = {test_utils.FakePublisher.id:'simahawk'}
         result = view.publish(publishers=publishers,accounts=accounts)
+        # we expect the content of the publication to be equal `get_text` result
+        # and the publisher/account mapping matching the one we pass to the publisher
         expected = {'content': 'Great event http://nohost/plone/event', 'fakepub': 'simahawk'}
         self.assertEqual(result,expected)
-        # publisher/account must be saved
+        # publisher/account mapping is saved by default by the publishing view
         self.assertEqual(manager.get_accounts(),{'fakepub': 'simahawk'})
-        # auto-publish
+
+    def test_autopublish(self):
+        test_utils.register_fake_publisher()
+        utility = component.queryUtility(ISocialPublisherUtility,
+                                         name=test_utils.FakePublisher.id)
+        # let's create an event
+        event = self.create_event()
+
         view = self.portal.restrictedTraverse('@@social-auto-publish')
         # manager.set_account(test_utils.FakePublisher.id,'simahawk')
         # the event is not auto-publish enabled so we must get no items
